@@ -1,0 +1,44 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de site",
+      "type": "income",
+      "category": "Venda",
+      "price": 14000,
+      "createdAt": "2023-02-12T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "description": "Lanche",
+      "type": "outcome",
+      "category": "Alimentação",
+      "price": 90,
+      "createdAt": "2023-02-12T00:01:00.000Z"
+    },
+    {
+      "id": 3,
+      "description": "Ignite",
+      "type": "outcome",
+      "category": "RocketSeat",
+      "price": 1970,
+      "createdAt": "2023-02-13T00:07:00.000Z"
+    },
+    {
+      "description": "Desenvolvimento de app",
+      "price": 10000,
+      "category": "Venda",
+      "type": "income",
+      "createdAt": "2023-02-14T01:46:56.617Z",
+      "id": 4
+    },
+    {
+      "description": "Iogurt",
+      "price": 4,
+      "category": "Alimentação",
+      "type": "outcome",
+      "createdAt": "2023-02-14T02:04:24.387Z",
+      "id": 5
+    }
+  ]
+}
