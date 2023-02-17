@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
+import { createContext } from 'use-context-selector'
 import { api } from '../lib/axios'
 
 // Criando uma interface para tipar o contexto
@@ -42,7 +43,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
   // Criando uma função para carregar as transações
-  async function fetchTransactions(query?: string) {
+
+  // usando useCallback
+
+  const fetchTransactions = useCallback(async (query?: string) => {
     const response = await api.get('transactions', {
       params: {
         _sort: 'createdAt',
@@ -52,28 +56,38 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     })
 
     setTransactions(response.data)
-  }
+  }, [])
+
+  // Usando o useCallback para criar uma função que não irá ser recriada toda vez que o componente for renderizado
+  // O useCallback recebe como parâmetro a função que será criada e um array de dependências
+  // O array de dependências é um array que contém as variáveis que serão monitoradas
+  // Caso alguma variável do array de dependências seja alterada, a função será recriada
+  // Caso o array de dependências seja vazio, a função será criada apenas uma vez
 
   // Criando uma função para criar uma nova transação e adicionar ela ao estado
   // A função irá receber como parâmetro os dados da transação
-  async function createTransaction(data: CreateTransactionInput) {
-    const { description, price, category, type } = data
-    const response = await api.post('transactions', {
-      description,
-      price,
-      category,
-      type,
-      // numa situação real, o createdAt deveria ser gerado no backend
-      createdAt: new Date(),
-    })
 
-    setTransactions((state) => [response.data, ...state])
-  }
+  const createTransaction = useCallback(
+    async (data: CreateTransactionInput) => {
+      const { description, price, category, type } = data
+      const response = await api.post('transactions', {
+        description,
+        price,
+        category,
+        type,
+        // numa situação real, o createdAt deveria ser gerado no backend
+        createdAt: new Date(),
+      })
+
+      setTransactions((state) => [response.data, ...state])
+    },
+    [],
+  )
 
   // Criando um efeito que irá carregar as transações
   useEffect(() => {
     fetchTransactions()
-  }, [])
+  }, [fetchTransactions])
 
   return (
     <TransactionsContext.Provider

@@ -39,6 +39,14 @@
       "type": "outcome",
       "createdAt": "2023-02-14T02:04:24.387Z",
       "id": 5
+    },
+    {
+      "description": "Projeto CAD",
+      "price": 1500,
+      "category": "Engenharia Mecânica",
+      "type": "income",
+      "createdAt": "2023-02-17T01:56:56.117Z",
+      "id": 6
     }
   ]
 }
